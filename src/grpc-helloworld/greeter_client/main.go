@@ -34,12 +34,15 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 
+	pb "grpc-helloworld/helloworld"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "grpc-helloworld/helloworld"
 )
 
 const (
@@ -47,9 +50,37 @@ const (
 	defaultName = "world"
 )
 
+type Config struct {
+	IP   string `json:"ip"`
+	Port string `json:"port"`
+}
+
+func readConfigFile(configObj interface{}, fileName string) error {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return err
+	}
+
+	content, _ := ioutil.ReadAll(file)
+	err = json.Unmarshal(content, configObj)
+	if err != nil {
+		log.Println("config_reader readConfigFile json.Unmarshal ", fileName, " error: ", err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func readcfg() *Config {
+	var cfg Config
+	readConfigFile(&cfg, "gretter_client.json")
+	return &cfg
+}
+
 func main() {
+	cfg := readcfg()
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	conn, err := grpc.Dial(cfg.IP+":"+cfg.Port, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

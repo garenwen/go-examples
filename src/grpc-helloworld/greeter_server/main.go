@@ -34,12 +34,17 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net"
+	"os"
+
+	pb "grpc-helloworld/helloworld"
+
+	"io/ioutil"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "grpc-helloworld/helloworld"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -47,16 +52,46 @@ const (
 	port = ":50051"
 )
 
+type Config struct {
+	IP   string `json:"ip"`
+	Port string `json:"port"`
+}
+
 // server is used to implement helloworld.GreeterServer.
 type server struct{}
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	log.Println("get request")
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
+func readConfigFile(configObj interface{}, fileName string) error {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return err
+	}
+
+	content, _ := ioutil.ReadAll(file)
+	err = json.Unmarshal(content, configObj)
+	if err != nil {
+		log.Println("config_reader readConfigFile json.Unmarshal ", fileName, " error: ", err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func readcfg() *Config {
+	var cfg Config
+	readConfigFile(&cfg, "gretter_server.json")
+	return &cfg
+}
+
 func main() {
-	lis, err := net.Listen("tcp", port)
+	cfg := readcfg()
+	log.Println("listenning at ", cfg.IP+":"+cfg.Port)
+	lis, err := net.Listen("tcp", cfg.IP+":"+cfg.Port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
