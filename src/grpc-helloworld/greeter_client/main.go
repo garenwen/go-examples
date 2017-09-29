@@ -35,11 +35,14 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
 
 	pb "grpc-helloworld/helloworld"
+
+	"time"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -53,6 +56,15 @@ const (
 type Config struct {
 	IP   string `json:"ip"`
 	Port string `json:"port"`
+}
+
+type errorString struct {
+	s string
+	A string
+}
+
+func (e *errorString) Error() string {
+	return e.s + e.A
 }
 
 func readConfigFile(configObj interface{}, fileName string) error {
@@ -92,9 +104,29 @@ func main() {
 	if len(os.Args) > 1 {
 		name = os.Args[1]
 	}
-	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+
+	c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+	//if err != nil {
+	//
+	//	//code := grpc.Code(err)
+	//	log.Fatalf("could not greet: %v", err)
+	//}
+	//log.Printf("Greeting: %s", r.Message)
+
+	stream, err := c.SayHello2(context.Background(), &pb.HelloRequest{Name: name})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Printf("Greeting: %s", r.Message)
+	for {
+		reply, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Printf("failed to recv: %v", err)
+		}
+		log.Printf("Greeting: %s", reply.Message)
+
+		time.Sleep(time.Second * 1)
+	}
 }

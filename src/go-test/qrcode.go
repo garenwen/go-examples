@@ -1,19 +1,20 @@
 package main
 
 import (
-	"github.com/boombuler/barcode"
-	"github.com/boombuler/barcode/qr"
+	"bytes"
+	"fmt"
 	"image"
+	"image/draw"
+	"image/jpeg"
 	"image/png"
 	"log"
-	"os"
-	"fmt"
-	"image/jpeg"
-	"image/draw"
-	"github.com/nfnt/resize"
-	"strings"
 	"net/http"
-	"bytes"
+	"os"
+	"strings"
+
+	"github.com/boombuler/barcode"
+	"github.com/boombuler/barcode/qr"
+	"github.com/nfnt/resize"
 )
 
 func writePng(filename string, img image.Image) {
@@ -77,12 +78,12 @@ func Merge() {
 
 	img = resize.Resize(33*3, 18*3, img, resize.Lanczos3)
 
-	x := jpg.Bounds().Size().X / 2 - img.Bounds().Size().X / 2
-	y := jpg.Bounds().Size().Y / 2 - img.Bounds().Size().Y / 2
+	x := jpg.Bounds().Size().X/2 - img.Bounds().Size().X/2
+	y := jpg.Bounds().Size().Y/2 - img.Bounds().Size().Y/2
 
-	rect := image.Rect(x + 22, y,x + 18*3+ 22,y + 18*3)
-	draw.Draw(jpg, jpg.Bounds(), img2, img2.Bounds().Min, draw.Over)                   //首先将一个图片信息存入jpg
-	draw.Draw(jpg, rect, img, image.Point{22,0}, draw.Over)   //将另外一张图片信息存入jpg
+	rect := image.Rect(x+22, y, x+18*3+22, y+18*3)
+	draw.Draw(jpg, jpg.Bounds(), img2, img2.Bounds().Min, draw.Over) //首先将一个图片信息存入jpg
+	draw.Draw(jpg, rect, img, image.Point{22, 0}, draw.Over)         //将另外一张图片信息存入jpg
 
 	// draw.DrawMask(jpg, jpg.Bounds(), img, img.Bounds().Min, img2, img2.Bounds().Min, draw.Src) // 利用这种方法不能够将两个图片直接合成？目前尚不知道原因。
 
@@ -127,7 +128,7 @@ func MakeQRCode(linkUrl, logoUrl string, logoImg *image.Image) (res []byte) {
 
 		if strings.Contains(logoUrl, ".png") {
 			img, err = png.Decode(respUrl.Body)
-			if err!= nil {
+			if err != nil {
 				log.Println(err.Error())
 			}
 		} else {
@@ -139,18 +140,17 @@ func MakeQRCode(linkUrl, logoUrl string, logoImg *image.Image) (res []byte) {
 
 		if err == nil {
 			img = resize.Resize(33*3, 18*3, *logoImg, resize.Lanczos3)
-			x := jpg.Bounds().Size().X / 2 - img.Bounds().Size().X / 2
-			y := jpg.Bounds().Size().Y / 2 - img.Bounds().Size().Y / 2
+			x := jpg.Bounds().Size().X/2 - img.Bounds().Size().X/2
+			y := jpg.Bounds().Size().Y/2 - img.Bounds().Size().Y/2
 
-			rect := image.Rect(x + 22, y,x + 18*3+ 22,y + 18*3)
-			draw.Draw(jpg, rect, *logoImg, image.Point{22,0}, draw.Over)   //将另外一张图片信息存入jpg
+			rect := image.Rect(x+22, y, x+18*3+22, y+18*3)
+			draw.Draw(jpg, rect, *logoImg, image.Point{22, 0}, draw.Over) //将另外一张图片信息存入jpg
 		}
 	}
 
 	var resBytes []byte
 	respBuffer := bytes.NewBuffer(resBytes)
 	jpeg.Encode(respBuffer, jpg, nil)
-
 
 	return resBytes
 

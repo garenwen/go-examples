@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"logger"
 	"os"
 	"runtime"
 	"runtime/pprof"
@@ -59,17 +58,22 @@ func main() {
 	//ReflectTest()
 
 	//新建一个logger
-	logger.New("mallcenter")
+	//logger.New("mallcenter")
+	//
+	////打印Info信息
+	//logger.Info("test_topic", map[string]interface{}{"key": 2})
+	//
+	////打印警告信息
+	//logger.Warnning("warnning log")
+	//
+	////打印debug信息
+	//logger.Debug("debug log")
+	//
+	////打印error信息
+	//logger.Error("error log")
 
-	//打印Info信息
-	logger.Info("test_topic", map[string]interface{}{"key": 2})
+	//QRCode()
+	//Merge()
 
-	//打印警告信息
-	logger.Warnning("warnning log")
-
-	//打印debug信息
-	logger.Debug("debug log")
-
-	//打印error信息
-	logger.Error("error log")
+	etcdmain()
 }
