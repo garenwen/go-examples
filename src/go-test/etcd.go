@@ -25,11 +25,11 @@ func etcdmain() {
 	}
 	defer cli.Close()
 	log.Println("存储值")
-	if _, err := cli.Put(context.TODO(), "sensors", `{sensor01:{topic:"w_sensor01"}}`); err != nil {
+	if _, err := cli.Put(context.TODO(), "e3w_test/admin_center/xxx", `{sensor01:{topic:"w_sensor01"}}`); err != nil {
 		log.Fatal(err)
 	}
 	log.Println("获取值")
-	if resp, err := cli.Get(context.TODO(), "sensors"); err != nil {
+	if resp, err := cli.Get(context.TODO(), "e3w_test/sensors"); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println("resp: ", resp)

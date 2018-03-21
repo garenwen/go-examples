@@ -35,7 +35,6 @@ package main
 
 import (
 	"encoding/json"
-	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -105,28 +104,34 @@ func main() {
 		name = os.Args[1]
 	}
 
-	c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+	for  {
+		r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+		if err != nil {
+
+			//code := grpc.Code(err)
+			log.Println("could not greet: %v", err)
+			continue
+		}
+		log.Printf("Greeting: %s", r.Message)
+		time.Sleep(time.Second)
+	}
+
+
+
+	//stream, err := c.SayHello2(context.Background(), &pb.HelloRequest{Name: name})
 	//if err != nil {
-	//
-	//	//code := grpc.Code(err)
 	//	log.Fatalf("could not greet: %v", err)
 	//}
-	//log.Printf("Greeting: %s", r.Message)
-
-	stream, err := c.SayHello2(context.Background(), &pb.HelloRequest{Name: name})
-	if err != nil {
-		log.Fatalf("could not greet: %v", err)
-	}
-	for {
-		reply, err := stream.Recv()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Printf("failed to recv: %v", err)
-		}
-		log.Printf("Greeting: %s", reply.Message)
-
-		time.Sleep(time.Second * 1)
-	}
+	//for {
+	//	reply, err := stream.Recv()
+	//	if err == io.EOF {
+	//		break
+	//	}
+	//	if err != nil {
+	//		log.Printf("failed to recv: %v", err)
+	//	}
+	//	log.Printf("Greeting: %s", reply.Message)
+	//
+	//	time.Sleep(time.Second * 1)
+	//}
 }

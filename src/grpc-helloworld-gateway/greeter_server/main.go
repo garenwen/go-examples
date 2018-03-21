@@ -37,9 +37,10 @@ import (
 	"log"
 	"net"
 
+	pb "grpc-helloworld/helloworld"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "grpc-helloworld/helloworld"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -55,6 +56,9 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
+func (s *server) SayHello2(*pb.HelloRequest, pb.Greeter_SayHello2Server) error {
+	return nil
+}
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {

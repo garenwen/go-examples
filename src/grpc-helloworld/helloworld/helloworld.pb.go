@@ -85,6 +85,7 @@ const _ = grpc.SupportPackageIsVersion4
 
 type GreeterClient interface {
 	// Sends a greeting
+	//
 	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
 	SayHello2(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (Greeter_SayHello2Client, error)
 }
@@ -142,6 +143,7 @@ func (x *greeterSayHello2Client) Recv() (*HelloReply, error) {
 
 type GreeterServer interface {
 	// Sends a greeting
+	//
 	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
 	SayHello2(*HelloRequest, Greeter_SayHello2Server) error
 }
