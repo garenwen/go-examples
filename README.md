@@ -1,10 +1,8 @@
 # go-example
 
-使用go语言和go第三方包的一些例子。
-
-
+Some examples of using golang and go third-party packages.
 
 ### Example List
 
-- [rpc-server](/rpc-server):go自带的rpc server端
-- [rpc-client](/rpc-client):go自带的rpc client端
+- [rpc-server](/rpc-server):rpc server based on net/rpc
+- [rpc-client](/rpc-client):rpc client based on net/rpc
