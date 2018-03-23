@@ -1,7 +1,7 @@
 package main
 
 import (
-	"protocol-buffer-http/helloworld"
+	"github.com/go-up/go-example/protocol-buffer-http/helloworld"
 
 	"log"
 
