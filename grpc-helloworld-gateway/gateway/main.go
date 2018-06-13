@@ -9,7 +9,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	gw "grpc-helloworld-gateway/helloworld"
+	gw "github.com/go-up/go-example/grpc-helloworld-gateway/helloworld"
 )
 
 var (
