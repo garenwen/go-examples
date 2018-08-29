@@ -25,3 +25,6 @@ _testmain.go
 
 bin/*
 .idea/*
+
+.DS_Store
+go.sum
