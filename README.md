@@ -7,3 +7,4 @@ Some examples written using golang third party packages.
 - [gin](/gin)
 - [rpc](/rpc)
 - [echo](/echo)
+- [sarama](/sarama)
