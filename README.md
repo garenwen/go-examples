@@ -21,6 +21,7 @@ go build
 - [grpc-helloworld-gateway](/grpc-helloworld-gateway)
 - [rpc](/rpc)
 - [sarama](/sarama)
+- [sqlx](/sqlx)
 - [websocket](/websocket)
 
 ## License
