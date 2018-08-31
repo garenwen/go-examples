@@ -17,6 +17,7 @@ go build
 - [echo](/echo)
 - [gin](/gin)
 - [go-github](go-github)
+- [goquery](/goquery)
 - [gorm](/gorm)
 - [gorp](/gorp)
 - [grpc-helloworld](/grpc-helloworld)
