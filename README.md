@@ -22,6 +22,8 @@ go build
 - [gorp](/gorp)
 - [grpc-helloworld](/grpc-helloworld)
 - [grpc-helloworld-gateway](/grpc-helloworld-gateway)
+- [otp](/otp)
+- [protocol-buffer-http](/protocol-buffer-http)
 - [rpc](/rpc)
 - [sarama](/sarama)
 - [sqlx](/sqlx)
