@@ -22,7 +22,7 @@ go build
 - [gorm](/gorm)
 - [gorp](/gorp)
 - [grpc-helloworld](/grpc-helloworld)
-- [grpc-helloworld-gateway](/grpc-helloworld-gateway)
+- [grpc-gateway](/grpc-gateway)
 - [otp](/otp)
 - [protocol-buffer-http](/protocol-buffer-http)
 - [rpc](/rpc)
