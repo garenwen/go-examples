@@ -23,6 +23,7 @@ go build
 - [gorm](/gorm)
 - [gorp](/gorp)
 - [grpc-helloworld](/grpc-helloworld)
+- [logrus](/logrus)
 - [otp](/otp)
 - [protocol-buffer-http](/protocol-buffer-http)
 - [rpc](/rpc)
