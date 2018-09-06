@@ -18,6 +18,7 @@ go build
 
 - [echo](/echo)
 - [gin](/gin)
+- [go-colorable](/go-colorable)
 - [goquery](/goquery)
 - [gorm](/gorm)
 - [gorp](/gorp)
