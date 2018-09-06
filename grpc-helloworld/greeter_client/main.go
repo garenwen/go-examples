@@ -42,7 +42,7 @@ func main() {
 		if err != nil {
 
 			//code := grpc.Code(err)
-			log.Println("could not greet: %v", err)
+			log.Println("could not greet: ", err)
 			continue
 		}
 		log.Printf("Greeting: %s", r.Message)
