@@ -1,11 +1,10 @@
 package main
 
 import (
-"net/http"
+	"net/http"
 
-"github.com/labstack/echo"
-"github.com/labstack/echo/middleware"
-"go-example/swag/basic/api"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
@@ -22,7 +21,6 @@ func main() {
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 
-	api.AnonymousField()
 }
 
 // Handler
