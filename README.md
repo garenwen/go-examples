@@ -16,6 +16,7 @@ go build
 
 ## Example List
 
+- [chi](/chi)
 - [echo](/echo)
 - [gin](/gin)
 - [go-colorable](/go-colorable)
@@ -29,6 +30,7 @@ go build
 - [rpc](/rpc)
 - [sarama](/sarama)
 - [sqlx](/sqlx)
+- [swag](/swag)
 - [websocket](/websocket)
 
 ## License

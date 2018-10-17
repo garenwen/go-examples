@@ -5,6 +5,7 @@ import (
 
 "github.com/labstack/echo"
 "github.com/labstack/echo/middleware"
+"go-example/swag/basic/api"
 )
 
 func main() {
@@ -20,6 +21,8 @@ func main() {
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
+
+	api.AnonymousField()
 }
 
 // Handler
